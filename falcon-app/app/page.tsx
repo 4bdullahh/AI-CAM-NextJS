@@ -20,32 +20,6 @@ export default function Dashboard() {
     <div className="flex h-screen w-full bg-white">
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Header */}
-        <header className="flex items-center justify-between p-4 border-b">
-          <div className="w-full max-w-md">
-            <Input
-              type="text"
-              placeholder="Search"
-              className="w-full rounded-full"
-            />
-          </div>
-          <div className="flex items-center gap-4">
-            <Button className="bg-black text-white rounded-full hover:bg-gray-800">
-              Create Event
-            </Button>
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <Bell className="w-5 h-5" />
-            </Button>
-            <div className="w-10 h-10 rounded-full overflow-hidden">
-              <img
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image%20%282%29-4n2XEWxgBnVCqtWqiYUimfkNGuJwMn.png"
-                alt="Profile"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-        </header>
-
         {/* Content */}
         <main className="flex-1 overflow-auto p-6">
           <div className="flex items-center justify-between mb-6">

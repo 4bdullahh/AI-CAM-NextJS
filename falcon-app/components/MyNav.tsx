@@ -25,7 +25,7 @@ function MyNav() {
       <nav className="flex-1">
         <div className="py-2">
           <a
-            href="#"
+            href="/home"
             className="flex items-center px-4 py-2 text-sm hover:bg-gray-100"
           >
             <Home className="w-5 h-5 mr-3" />
@@ -67,7 +67,7 @@ function MyNav() {
                 {expandedRegions.region1 && (
                   <div className="ml-4">
                     <a
-                      href="#"
+                      href="/camera"
                       className="flex items-center px-4 py-2 text-sm hover:bg-gray-100"
                     >
                       <div className="w-2 h-2 rounded-full bg-green-500 mr-3"></div>
