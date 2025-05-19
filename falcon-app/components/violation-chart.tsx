@@ -41,8 +41,16 @@ const generateChartData = () => {
   return data;
 };
 
+type ViolationData = {
+  date: string;
+  hardHat: number;
+  safetyGlasses: number;
+  safetyVest: number;
+  total: number;
+};
+
 export function ViolationChart() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<ViolationData[]>([]);
 
   useEffect(() => {
     setData(generateChartData());
