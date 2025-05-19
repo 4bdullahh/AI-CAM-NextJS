@@ -22,13 +22,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 import { ViolationChart } from "@/components/violation-chart";
-import { CameraStatusTable } from "@/components/camera-status-table";
-import { RecentViolationsTable } from "@/components/recent-violations-table";
+// import { CameraStatusTable } from "@/components/camera-status-table";
+// import { RecentViolationsTable } from "@/components/recent-violations-table";
 
 export default function DashboardPage() {
   return (
     <SidebarProvider>
-      <DashboardSidebar />
+      {/* <DashboardSidebar /> */}
       <SidebarInset>
         <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
           <div className="flex items-center justify-between">
@@ -143,7 +143,7 @@ export default function DashboardPage() {
                             style={{ width: "50%" }}
                           ></div>
                         </div>
-                      </div>
+                      </div> 
 
                       <div className="flex items-center">
                         <div className="flex items-center space-x-2 mr-4">
@@ -189,9 +189,7 @@ export default function DashboardPage() {
                       Latest detected PPE violations across all cameras
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <RecentViolationsTable />
-                  </CardContent>
+                  <CardContent>{/* <RecentViolationsTable /> */}</CardContent>
                 </Card>
               </div>
             </TabsContent>
@@ -231,9 +229,7 @@ export default function DashboardPage() {
                     <Activity className="ml-1 h-4 w-4" />
                   </Link>
                 </CardHeader>
-                <CardContent>
-                  <CameraStatusTable />
-                </CardContent>
+                <CardContent>{/* <CameraStatusTable /> */}</CardContent>
               </Card>
             </TabsContent>
           </Tabs>
