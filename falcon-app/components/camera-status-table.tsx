@@ -33,6 +33,7 @@ type CameraInfo = {
 };
 
 // Sample data for camera status
+// get from API call
 const cameras: CameraInfo[] = [
   {
     id: "CAM-001",

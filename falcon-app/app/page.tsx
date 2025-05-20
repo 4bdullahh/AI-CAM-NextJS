@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Bell,
   ChevronDown,
@@ -14,8 +14,22 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import getViolations from "@/pages/api/getViolations";
+import { MessageResult } from "@/models/MessageResult";
+import type { NextApiRequest,NextApiResponse } from 'next'
 
 export default function Dashboard() {
+  const[violation, setViolation] = useState<MessageResult>();
+
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch('/api/getViolations')
+      const json: MessageResult = await res.json()
+      setViolation(json)
+    }
+    fetchData()
+  }, [])
+
   return (
     <div className="flex h-screen w-full bg-white">
       {/* Main content */}
@@ -232,7 +246,7 @@ export default function Dashboard() {
                 <Input type="text" placeholder="Search Logs" />
               </div>
             </div>
-
+            {/* Inject results into span and for loop border */}
             <div className="space-y-3">
               <div className="border rounded-full p-4 flex items-center">
                 <div className="w-4 h-4 rounded-full bg-green-500 mr-3"></div>
