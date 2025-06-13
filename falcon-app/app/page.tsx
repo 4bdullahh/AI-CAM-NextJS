@@ -27,14 +27,15 @@ export default function Dashboard() {
     setViolation(json)
   }
 
-  async function fetchLogData() {
-    const res = await fetch('/api/getViolationLogs')
-    const json: ViolationMessage = await res.json()
-    setLog(json)
-  }
+  // async function fetchLogData() {
+  //   const res = await fetch('/api/getViolationLogs')
+  //   const json: ViolationMessage = await res.json()
+  //   setLog(json)
+  // }
+
   useEffect(() => {
     fetchViolationData();
-    fetchLogData();
+    // fetchLogData();
   }, []);
 
   return (
@@ -222,12 +223,12 @@ export default function Dashboard() {
                 <div className="flex justify-between items-center">
                   <span>Hi Vis</span>
                    {
-                     violation&& violation?.violations.length > 0?(
-                        violation?.violations.map((person, idx) => (
+                     violation&& violation?.person_detected.length > 0?(
+                        violation?.person_detected.map((person, idx) => (
                         
-                          person.violation_list.map((v, idx)=>(
+                          person.violations.map((v, idx)=>(
                               <span key={idx}>   
-                                {JSON.stringify(v.confidence)}
+                                {JSON.stringify(v.violation)}
                             </span>
                           ))
                       ))
@@ -270,7 +271,8 @@ export default function Dashboard() {
                   <Camera className="w-3 h-3 text-white" />
                 </div>
                 <span>
-                    {
+                  hello
+                    {/* {
                       log && log.violations.length > 0 ? (
                         log.violations.map((v, idx) => (
                           <span key={idx}>
@@ -280,7 +282,7 @@ export default function Dashboard() {
                       ) : (
                         <span>No Values Retrieved</span>
                       )
-                    }
+                    } */}
                 </span>
               </div>
 

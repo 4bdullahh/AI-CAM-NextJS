@@ -23,7 +23,12 @@ export default async function getViolations(
     }
 
     const data = (await response.json()) as MessageResult
-    console.log("Data: ",data)
+    console.log("MessageResult Model Data: ",data)
+    if(data.person_detected && Array.isArray(data.person_detected)){
+        data.person_detected.forEach((item, idx)=>{
+            console.log(`Person ${idx}: `,item.person, `Violations: `,item.violations)
+        })
+    }
     const result = res.status(200).json(data)
   
     return result

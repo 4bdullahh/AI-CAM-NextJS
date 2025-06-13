@@ -11,10 +11,11 @@ export interface PredictionsDTO {
 }
 
 export interface PersonDTO {
-  violation_list: PredictionsDTO[]
+  person: PredictionsDTO
+  violations: PredictionsDTO[]
 }
 
 export interface MessageResult{
-    violations: PersonDTO[],
+    person_detected: PersonDTO[],
 }
 
