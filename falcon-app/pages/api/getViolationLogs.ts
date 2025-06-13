@@ -2,11 +2,11 @@ import type { NextApiRequest,NextApiResponse } from 'next'
  
 const BACKEND_URL = process.env.BACKEND_URL
 
-import { MessageResult } from '@/models/MessageResult'
+import { ViolationMessage } from '@/models/ViolationLogs'
 
-export default async function getViolations(
+export default async function getViolationLogs(
   req: NextApiRequest,
-  res: NextApiResponse<MessageResult | { error: string }>
+  res: NextApiResponse<ViolationMessage | { error: string }>
 ) {
 
    if (req.method !== 'GET') {
@@ -15,14 +15,14 @@ export default async function getViolations(
   }
 
   try {
-    const url = `${BACKEND_URL}/get-violation-data`;
+    const url = `${BACKEND_URL}/get-violation-log`;
     const response = await fetch(url);
     
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
 
-    const data = (await response.json()) as MessageResult
+    const data = (await response.json()) as ViolationMessage
     console.log("Data: ",data)
     const result = res.status(200).json(data)
   
@@ -33,4 +33,3 @@ export default async function getViolations(
       return res.status(500).json({ error: err.message || 'Internal Server Error' })
   }
 }
-

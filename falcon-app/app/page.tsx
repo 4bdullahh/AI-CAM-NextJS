@@ -14,19 +14,18 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import getViolations from "@/pages/api/getViolations";
 import { MessageResult } from "@/models/MessageResult";
-import type { NextApiRequest,NextApiResponse } from 'next'
 
 export default function Dashboard() {
   const[violation, setViolation] = useState<MessageResult>();
 
+  async function fetchData() {
+    const res = await fetch('/api/getViolations')
+    const json: MessageResult = await res.json()
+    setViolation(json)
+  }
+
   useEffect(() => {
-    async function fetchData() {
-      const res = await fetch('/api/getViolations')
-      const json: MessageResult = await res.json()
-      setViolation(json)
-    }
     fetchData()
   }, [])
 
@@ -214,26 +213,22 @@ export default function Dashboard() {
 
                 <div className="flex justify-between items-center">
                   <span>Hi Vis</span>
-                  <span className="font-medium">32</span>
+                   {
+                     violation&& violation?.violations.length > 0?(
+                        violation?.violations.map((person, idx) => (
+                        
+                          person.violation_list.map((v, idx)=>(
+                              <span key={idx}>   
+                                {JSON.stringify(v)}
+                            </span>
+                          ))
+                      ))
+
+                     ):(
+                        <span>No Values Retrieved</span>
+                     )}
                 </div>
                 <div className="border-t"></div>
-
-                <div className="flex justify-between items-center">
-                  <span>Glasses</span>
-                  <span className="font-medium">70</span>
-                </div>
-                <div className="border-t"></div>
-
-                <div className="flex justify-between items-center">
-                  <span>Gloves</span>
-                  <span className="font-medium">80</span>
-                </div>
-                <div className="border-t"></div>
-
-                <div className="flex justify-between items-center">
-                  <span>Boots</span>
-                  <span className="font-medium">12</span>
-                </div>
               </div>
             </div>
           </div>
