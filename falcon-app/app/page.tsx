@@ -15,19 +15,27 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MessageResult } from "@/models/MessageResult";
+import { ViolationMessage } from "@/models/ViolationLogs";
 
 export default function Dashboard() {
   const[violation, setViolation] = useState<MessageResult>();
+  const[log, setLog] = useState<ViolationMessage>();
 
-  async function fetchData() {
+  async function fetchViolationData() {
     const res = await fetch('/api/getViolations')
     const json: MessageResult = await res.json()
     setViolation(json)
   }
 
+  async function fetchLogData() {
+    const res = await fetch('/api/getViolationLogs')
+    const json: ViolationMessage = await res.json()
+    setLog(json)
+  }
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchViolationData();
+    fetchLogData();
+  }, []);
 
   return (
     <div className="flex h-screen w-full bg-white">
@@ -219,7 +227,7 @@ export default function Dashboard() {
                         
                           person.violation_list.map((v, idx)=>(
                               <span key={idx}>   
-                                {JSON.stringify(v)}
+                                {JSON.stringify(v.confidence)}
                             </span>
                           ))
                       ))
@@ -262,7 +270,17 @@ export default function Dashboard() {
                   <Camera className="w-3 h-3 text-white" />
                 </div>
                 <span>
-                  #ID3724: Violation Detected at time 20:19:29 - 23/03/24
+                    {
+                      log && log.violations.length > 0 ? (
+                        log.violations.map((v, idx) => (
+                          <span key={idx}>
+                            Violation Detected {v.violation}, {v.description}, {v.date}, {v.time}
+                          </span>
+                        ))
+                      ) : (
+                        <span>No Values Retrieved</span>
+                      )
+                    }
                 </span>
               </div>
 
