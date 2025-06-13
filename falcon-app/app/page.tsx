@@ -14,21 +14,29 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import getViolations from "@/pages/api/getViolations";
 import { MessageResult } from "@/models/MessageResult";
-import type { NextApiRequest,NextApiResponse } from 'next'
+import { ViolationMessage } from "@/models/ViolationLogs";
 
 export default function Dashboard() {
   const[violation, setViolation] = useState<MessageResult>();
+  const[log, setLog] = useState<ViolationMessage>();
+
+  async function fetchViolationData() {
+    const res = await fetch('/api/getViolations')
+    const json: MessageResult = await res.json()
+    setViolation(json)
+  }
+
+  // async function fetchLogData() {
+  //   const res = await fetch('/api/getViolationLogs')
+  //   const json: ViolationMessage = await res.json()
+  //   setLog(json)
+  // }
 
   useEffect(() => {
-    async function fetchData() {
-      const res = await fetch('/api/getViolations')
-      const json: MessageResult = await res.json()
-      setViolation(json)
-    }
-    fetchData()
-  }, [])
+    fetchViolationData();
+    // fetchLogData();
+  }, []);
 
   return (
     <div className="flex h-screen w-full bg-white">
@@ -214,26 +222,22 @@ export default function Dashboard() {
 
                 <div className="flex justify-between items-center">
                   <span>Hi Vis</span>
-                  <span className="font-medium">32</span>
+                   {
+                     violation&& violation?.person_detected.length > 0?(
+                        violation?.person_detected.map((person, idx) => (
+                        
+                          person.violations.map((v, idx)=>(
+                              <span key={idx}>   
+                                {JSON.stringify(v.violation)}
+                            </span>
+                          ))
+                      ))
+
+                     ):(
+                        <span>No Values Retrieved</span>
+                     )}
                 </div>
                 <div className="border-t"></div>
-
-                <div className="flex justify-between items-center">
-                  <span>Glasses</span>
-                  <span className="font-medium">70</span>
-                </div>
-                <div className="border-t"></div>
-
-                <div className="flex justify-between items-center">
-                  <span>Gloves</span>
-                  <span className="font-medium">80</span>
-                </div>
-                <div className="border-t"></div>
-
-                <div className="flex justify-between items-center">
-                  <span>Boots</span>
-                  <span className="font-medium">12</span>
-                </div>
               </div>
             </div>
           </div>
@@ -267,7 +271,18 @@ export default function Dashboard() {
                   <Camera className="w-3 h-3 text-white" />
                 </div>
                 <span>
-                  #ID3724: Violation Detected at time 20:19:29 - 23/03/24
+                  hello
+                    {/* {
+                      log && log.violations.length > 0 ? (
+                        log.violations.map((v, idx) => (
+                          <span key={idx}>
+                            Violation Detected {v.violation}, {v.description}, {v.date}, {v.time}
+                          </span>
+                        ))
+                      ) : (
+                        <span>No Values Retrieved</span>
+                      )
+                    } */}
                 </span>
               </div>
 

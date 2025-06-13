@@ -1,14 +1,21 @@
 
 export interface PredictionsDTO {
-  violation_id: number
-  violation: string
   confidence: number
+  violation: string
+  violation_id: number
   detection_id: number
-  resCode: number
+  width: number
+  height: number
+  x: number
+  y: number 
+}
+
+export interface PersonDTO {
+  person: PredictionsDTO
+  violations: PredictionsDTO[]
 }
 
 export interface MessageResult{
-    violations: PredictionsDTO[],
-    output_image: string
+    person_detected: PersonDTO[],
 }
 
