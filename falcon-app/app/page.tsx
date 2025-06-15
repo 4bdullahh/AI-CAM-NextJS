@@ -97,7 +97,7 @@ export default function Dashboard() {
               <div className="text-4xl font-bold mb-2">5.7k</div>
               <Button
                 variant="outline"
-                className="bg-black text-white hover:bg-gray-800 text-xs py-0 h-7 rounded-sm"
+                className="bg-black text-white hoverbg-gray-800 text-xs py-0 h-7 rounded-sm"
               >
                 + Details
               </Button>
