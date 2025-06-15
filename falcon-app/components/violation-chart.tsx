@@ -13,6 +13,7 @@ import {
 import { Card } from "@/components/ui/card";
 
 // Sample data for the chart
+// replace with API call
 const generateChartData = () => {
   const data = [];
   const now = new Date();
@@ -20,7 +21,7 @@ const generateChartData = () => {
   for (let i = 13; i >= 0; i--) {
     const date = new Date(now);
     date.setDate(date.getDate() - i);
-
+  
     // Generate random data with some patterns
     const hardHat = Math.floor(Math.random() * 15) + 5;
     const safetyGlasses = Math.floor(Math.random() * 10) + 2;
@@ -34,7 +35,7 @@ const generateChartData = () => {
       hardHat,
       safetyGlasses,
       safetyVest,
-      total: hardHat + safetyGlasses + safetyVest,
+      total: hardHat + safetyVest,
     });
   }
 
@@ -87,9 +88,6 @@ export function ViolationChart() {
                   <div className="text-xs text-orange-500">
                     Hard Hat: {payload[0].payload.hardHat}
                   </div>
-                  <div className="text-xs text-blue-500">
-                    Safety Glasses: {payload[0].payload.safetyGlasses}
-                  </div>
                   <div className="text-xs text-green-500">
                     Safety Vest: {payload[0].payload.safetyVest}
                   </div>
@@ -114,14 +112,6 @@ export function ViolationChart() {
           type="monotone"
           dataKey="hardHat"
           stroke="hsl(var(--orange-500, 24 95% 53%))"
-          strokeWidth={1.5}
-          strokeDasharray="4 4"
-          dot={false}
-        />
-        <Line
-          type="monotone"
-          dataKey="safetyGlasses"
-          stroke="hsl(var(--blue-500, 217 91% 60%))"
           strokeWidth={1.5}
           strokeDasharray="4 4"
           dot={false}
