@@ -21,7 +21,7 @@ function MyNav() {
 
   return (
     <div className="w-60 border-r flex flex-col">
-      <div className="p-4 font-bold text-xl">Dashboard</div>
+      <div className="p-4 font-bold text-xl">Serivo</div>
       <nav className="flex-1">
         <div className="py-2">
           <a
