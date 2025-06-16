@@ -27,15 +27,15 @@ export default function Dashboard() {
     setViolation(json)
   }
 
-  // async function fetchLogData() {
-  //   const res = await fetch('/api/getViolationLogs')
-  //   const json: ViolationMessage = await res.json()
-  //   setLog(json)
-  // }
+  async function fetchLogData() {
+    const res = await fetch('/api/getViolationLogs')
+    const json: ViolationMessage = await res.json()
+    setLog(json)
+  }
 
   useEffect(() => {
     fetchViolationData();
-    // fetchLogData();
+    fetchLogData();
   }, []);
 
   return (
@@ -222,20 +222,19 @@ export default function Dashboard() {
 
                 <div className="flex justify-between items-center">
                   <span>Hi Vis</span>
-                   {
-                     violation&& violation?.person_detected.length > 0?(
-                        violation?.person_detected.map((person, idx) => (
-                        
-                          person.violations.map((v, idx)=>(
-                              <span key={idx}>   
-                                {JSON.stringify(v.violation)}
-                            </span>
-                          ))
-                      ))
-
-                     ):(
-                        <span>No Values Retrieved</span>
-                     )}
+                  {
+                    violation && Array.isArray(violation.person_detected) && violation.person_detected.length > 0 ? (
+                      violation.person_detected.map((person, idx) =>
+                        person.violations.map((v, vIdx) => (
+                          <span key={`${idx}-${vIdx}`}>
+                            {JSON.stringify(v.violation)}
+                          </span>
+                        ))
+                      )
+                    ) : (
+                      <span>No Values Retrieved</span>
+                    )
+                  }
                 </div>
                 <div className="border-t"></div>
               </div>
@@ -252,48 +251,28 @@ export default function Dashboard() {
             </div>
             {/* Inject results into span and for loop border */}
             <div className="space-y-3">
-              <div className="border rounded-full p-4 flex items-center">
-                <div className="w-4 h-4 rounded-full bg-green-500 mr-3"></div>
+        
                 <span>
-                  #ID3724: Connection Restored at time 12:29:48 - 23/03/24
-                </span>
-              </div>
-
-              <div className="border rounded-full p-4 flex items-center">
-                <div className="w-4 h-4 rounded-full bg-red-500 mr-3"></div>
-                <span>
-                  #ID3724: Connection Error at time 12:25:14 - 23/03/24
-                </span>
-              </div>
-
-              <div className="border rounded-full p-4 flex items-center">
-                <div className="w-4 h-4 bg-orange-500 mr-3 flex items-center justify-center">
-                  <Camera className="w-3 h-3 text-white" />
-                </div>
-                <span>
-                  hello
-                    {/* {
-                      log && log.violations.length > 0 ? (
+                    {
+                      log &&  Array.isArray(log.violations) && log.violations.length > 0 ? (
                         log.violations.map((v, idx) => (
-                          <span key={idx}>
-                            Violation Detected {v.violation}, {v.description}, {v.date}, {v.time}
-                          </span>
+                          
+                          <div key={idx}className="border rounded-full p-4 mb-2 flex items-center">
+                            <div className="w-4 h-4 rounded-full bg-red-500 mr-3"></div>
+
+                            <span>
+                                Violation Detected: {v.violation}, {v.confidence}, {v.description}, {v.date}, {v.time}
+                            </span>
+                          </div>
+                         
                         ))
                       ) : (
                         <span>No Values Retrieved</span>
+                     
                       )
-                    } */}
+                    }
                 </span>
-              </div>
-
-              <div className="border rounded-full p-4 flex items-center">
-                <div className="w-4 h-4 bg-orange-500 mr-3 flex items-center justify-center">
-                  <Camera className="w-3 h-3 text-white" />
-                </div>
-                <span>
-                  #ID3724: Violation Detected at time 14:19:29 - 22/03/24
-                </span>
-              </div>
+         
             </div>
           </div>
         </main>

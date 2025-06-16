@@ -35,6 +35,7 @@ export default async function getViolations(
     
   }  catch (err: any) {
       console.error('Error in getViolations:', err)
+      console.log(`Data: ${err.data}` )
       return res.status(500).json({ error: err.message || 'Internal Server Error' })
   }
 }
